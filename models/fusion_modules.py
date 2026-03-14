@@ -55,9 +55,10 @@ class STPFusionModule(nn.Module):
 
         # 融合后的后处理卷积：[C×γ², H, W] → [C×γ², H, W]
         # 作用：让网络学习调整各子像素通道的权重，而不是硬编码 STP 的输出
+        # groups=channels：按原始 C 通道独立处理，允许同一通道的 γ² 个子像素互相交换信息，
+        # 比 groups=C*γ²（完全逐通道）保留更多高频空间结构
         self.post_conv = nn.Sequential(
-            # 深度可分离卷积（depthwise）：每个 C×γ² 通道独立处理，参数量小
-            nn.Conv2d(channels * gamma2, channels * gamma2, 3, padding=1, groups=channels * gamma2),
+            nn.Conv2d(channels * gamma2, channels * gamma2, 3, padding=1, groups=channels),
             nn.BatchNorm2d(channels * gamma2),
             nn.GELU(),
             # 逐点卷积（pointwise）：整合跨通道信息
@@ -71,6 +72,13 @@ class STPFusionModule(nn.Module):
         # 注意：这里的 PixelShuffle 不是上采样，而是子像素重排列（spatial rearrangement），
         # 因为空间维度（H, W）已经是低分辨率，γ² 个子通道对应γ×γ个子像素
         self.pixel_shuffle = nn.PixelShuffle(gamma)
+
+        # 可学习的融合门控：让网络自适应地决定乘法项（STP交互项）与加法项（可见光保留项）
+        # 的相对权重，防止红外特征接近0时完全抹去可见光细节。
+        # 初始化偏置为 0，使 Sigmoid 输出从 0.5 开始（对两种贡献等权重），训练稳定。
+        _gate_conv = nn.Conv2d(channels * gamma2, channels * gamma2, 1)
+        nn.init.zeros_(_gate_conv.bias)
+        self.gate = nn.Sequential(_gate_conv, nn.Sigmoid())
 
         # 残差连接：把可见光特征直接加到 STP 输出上（保留高频纹理）
         # 需要 1×1 卷积对齐通道数（vis 特征是 [C, γH, γW]，输出也是 [C, γH, γW]）
@@ -104,25 +112,31 @@ class STPFusionModule(nn.Module):
         # ── 步骤 2：低分辨率红外特征展平 ──
         ir_flat = feat_ir.reshape(B, C, H * W)  # [B, C, H*W]
 
-        # ── 步骤 3：STP 代数融合 ──
+        # ── 步骤 3：STP 代数融合（带残差加法，防止 IR 特征为 0 时抹去可见光细节）──
         # 数学含义：对于每个位置 k 和通道 c：
         #   fused[b, c, s, k] = ir_flat[b, c, k] × rgb_patches[b, c, s, k]
         # 即：红外的第 c 通道特征与可见光 γ×γ 局部块的第 s 个子像素相乘。
         # 这正是 (a_k ⊗ I_{γ²}) 与 b 的相互作用：保留了 a_k 的全部信息，
         # 同时引入了可见光的精细纹理，没有任何插值近似。
-        ir_expanded = ir_flat.unsqueeze(2)  # [B, C, 1, H*W]
-        fused = ir_expanded * rgb_patches   # [B, C, γ², H*W]（广播乘法）
+        # 额外加入 rgb_patches 本身作为加性残差，保证当 IR 特征趋近 0 时
+        # 可见光高频细节仍能传播到融合输出（有助于提升 AG / SF 指标）。
+        ir_expanded = ir_flat.unsqueeze(2)          # [B, C, 1, H*W]
+        interact = ir_expanded * rgb_patches         # [B, C, γ², H*W]（STP 交互项）
+        fused = interact + rgb_patches               # [B, C, γ², H*W]（加性残差）
 
         # ── 步骤 4：重塑为空间特征图 ──
         # [B, C, γ², H*W] → [B, C*γ², H*W] → [B, C*γ², H, W]
         fused = fused.reshape(B, C * gamma * gamma, H * W)
         fused = fused.reshape(B, C * gamma * gamma, H, W)
 
-        # ── 步骤 5：可学习的后处理 ──
-        fused = self.post_conv(fused)  # [B, C*γ², H, W]
+        # ── 步骤 5：可学习的后处理 + 门控 ──
+        # 门控机制：学习每个子像素通道的保留比例，进一步控制 STP 输出的强度
+        fused_post = self.post_conv(fused)                      # [B, C*γ², H, W]
+        gate = self.gate(fused_post)                            # [B, C*γ², H, W] ∈ (0,1)
+        fused_gated = gate * fused_post + (1 - gate) * fused   # 自适应加权融合
 
         # ── 步骤 6：子像素重排为高分辨率特征图 ──
-        fused_hr = self.pixel_shuffle(fused)  # [B, C, γH, γW]
+        fused_hr = self.pixel_shuffle(fused_gated)  # [B, C, γH, γW]
 
         # ── 步骤 7：残差连接（加入可见光高频细节）──
         fused_hr = fused_hr + self.residual_proj(feat_rgb)

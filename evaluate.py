@@ -4,6 +4,7 @@ evaluate.py - 优化版：支持抽样评估与流式计算，防止内存溢出
 
 import os
 import sys
+import random
 import argparse
 import json
 from pathlib import Path
@@ -97,11 +98,17 @@ def evaluate(checkpoint_path: str, gamma: int, test_list: str, device: torch.dev
     evaluated_count = 0
 
     # ── 4. 推理与流式计算 ──
-    pbar = tqdm(total=total_samples // sample_rate, desc="评估进度")
+    # 固定随机种子抽样：每次运行从数据集中选出相同的 1/sample_rate 图片
+    n_to_evaluate = max(1, total_samples // sample_rate)
+    _rng = random.Random(42)
+    selected_indices = set(_rng.sample(range(total_samples), n_to_evaluate))
+    print(f"固定随机抽样（seed=42）：从 {total_samples} 张中选 {n_to_evaluate} 张")
+
+    pbar = tqdm(total=n_to_evaluate, desc="评估进度")
     
     for i, batch in enumerate(test_loader):
-        # 抽样逻辑
-        if i % sample_rate != 0:
+        # 固定随机抽样逻辑
+        if i not in selected_indices:
             continue
             
         ir_lr = batch["ir_lr"].to(device)
