@@ -1,0 +1,29 @@
+data:
+  num_workers: 4
+  patch_size: 128
+  test_list: ./data/file_lists/llvip_test.txt
+  train_list: ./data/file_lists/llvip_train_200.txt
+  val_list: ./data/file_lists/llvip_val_200.txt
+loss:
+  lambda1: 1.0
+  lambda2: 0.1
+  lambda3: 0.5
+model:
+  channels: 32
+  dec_blocks: 2
+  enc_blocks: 4
+  fusion_method: stp
+  gamma: 4
+output:
+  exp_name: ablation_stp
+  save_dir: ./results
+train:
+  batch_size: 8
+  clip_grad: 0.01
+  epochs: 25
+  log_every: 20
+  lr: 0.001
+  lr_gamma: 0.5
+  lr_step: 10
+  save_every: 5
+  val_every: 1

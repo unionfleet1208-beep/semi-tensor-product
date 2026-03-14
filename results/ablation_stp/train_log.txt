@@ -1,0 +1,139 @@
+[ablation_stp][13:52:03] ============================================================
+[ablation_stp][13:52:03] 方法=stp  γ=4  device=cuda
+[ablation_stp][13:52:03] lr=0.001(DSA-Net)  bs=8(CDDFuse)  ep=25(DSA-Net)  patch=128(CDDFuse)  clip=0.01(CDDFuse)
+[ablation_stp][13:52:03] ============================================================
+[ablation_stp][13:52:03] train=200对 (25batch/ep)  val=200对(全图)
+[ablation_stp][13:52:04] 参数量：463,105
+[ablation_stp][13:52:06] Ep01 020/25 | loss=0.1286 px=0.081 pe=0.110 gr=0.073
+[ablation_stp][13:52:06] Ep01 025/25 | loss=0.1520 px=0.109 pe=0.107 gr=0.065
+[ablation_stp][13:53:01] [Val] Ep01 loss=0.1294 | AG=0.0077 EN=5.4074 SSIM=0.7648
+[ablation_stp][13:53:02]   ★ 最佳模型更新  AG=0.0077
+[ablation_stp][13:53:02] Ep01 done | 57.5s | train_loss=0.1628 | lr=1.00e-03
+
+[ablation_stp][13:53:03] Ep02 020/25 | loss=0.1069 px=0.068 pe=0.099 gr=0.059
+[ablation_stp][13:53:03] Ep02 025/25 | loss=0.1073 px=0.070 pe=0.095 gr=0.056
+[ablation_stp][13:53:58] [Val] Ep02 loss=0.0730 | AG=0.0124 EN=6.5240 SSIM=0.8769
+[ablation_stp][13:53:58]   ★ 最佳模型更新  AG=0.0124
+[ablation_stp][13:53:58] Ep02 done | 56.2s | train_loss=0.1036 | lr=1.00e-03
+
+[ablation_stp][13:53:59] Ep03 020/25 | loss=0.1169 px=0.063 pe=0.110 gr=0.086
+[ablation_stp][13:53:59] Ep03 025/25 | loss=0.0878 px=0.054 pe=0.083 gr=0.051
+[ablation_stp][13:54:54] [Val] Ep03 loss=0.0652 | AG=0.0123 EN=6.5510 SSIM=0.8916
+[ablation_stp][13:54:54] Ep03 done | 56.6s | train_loss=0.0944 | lr=1.00e-03
+
+[ablation_stp][13:54:55] Ep04 020/25 | loss=0.0975 px=0.041 pe=0.138 gr=0.086
+[ablation_stp][13:54:56] Ep04 025/25 | loss=0.0692 px=0.038 pe=0.084 gr=0.045
+[ablation_stp][13:55:51] [Val] Ep04 loss=0.0645 | AG=0.0115 EN=6.3744 SSIM=0.8971
+[ablation_stp][13:55:51] Ep04 done | 56.7s | train_loss=0.0836 | lr=1.00e-03
+
+[ablation_stp][13:55:52] Ep05 020/25 | loss=0.0764 px=0.050 pe=0.069 gr=0.040
+[ablation_stp][13:55:52] Ep05 025/25 | loss=0.0960 px=0.070 pe=0.059 gr=0.041
+[ablation_stp][13:56:48] [Val] Ep05 loss=0.0550 | AG=0.0128 EN=6.6400 SSIM=0.9341
+[ablation_stp][13:56:48]   ★ 最佳模型更新  AG=0.0128
+[ablation_stp][13:56:48] Ep05 done | 56.5s | train_loss=0.0865 | lr=1.00e-03
+
+[ablation_stp][13:56:49] Ep06 020/25 | loss=0.0981 px=0.053 pe=0.115 gr=0.067
+[ablation_stp][13:56:49] Ep06 025/25 | loss=0.0899 px=0.057 pe=0.077 gr=0.051
+[ablation_stp][13:57:44] [Val] Ep06 loss=0.0537 | AG=0.0132 EN=6.7421 SSIM=0.9390
+[ablation_stp][13:57:44]   ★ 最佳模型更新  AG=0.0132
+[ablation_stp][13:57:44] Ep06 done | 56.1s | train_loss=0.0827 | lr=1.00e-03
+
+[ablation_stp][13:57:45] Ep07 020/25 | loss=0.0484 px=0.018 pe=0.086 gr=0.044
+[ablation_stp][13:57:45] Ep07 025/25 | loss=0.0890 px=0.061 pe=0.070 gr=0.042
+[ablation_stp][13:58:40] [Val] Ep07 loss=0.0612 | AG=0.0109 EN=6.8206 SSIM=0.9264
+[ablation_stp][13:58:40] Ep07 done | 56.6s | train_loss=0.0788 | lr=1.00e-03
+
+[ablation_stp][13:58:41] Ep08 020/25 | loss=0.1186 px=0.081 pe=0.071 gr=0.062
+[ablation_stp][13:58:42] Ep08 025/25 | loss=0.1361 px=0.071 pe=0.123 gr=0.105
+[ablation_stp][13:59:37] [Val] Ep08 loss=0.0439 | AG=0.0125 EN=6.6294 SSIM=0.9462
+[ablation_stp][13:59:37] Ep08 done | 56.4s | train_loss=0.0761 | lr=1.00e-03
+
+[ablation_stp][13:59:38] Ep09 020/25 | loss=0.0646 px=0.041 pe=0.059 gr=0.036
+[ablation_stp][13:59:38] Ep09 025/25 | loss=0.0454 px=0.019 pe=0.069 gr=0.039
+[ablation_stp][14:00:33] [Val] Ep09 loss=0.0631 | AG=0.0116 EN=6.3850 SSIM=0.9392
+[ablation_stp][14:00:33] Ep09 done | 56.4s | train_loss=0.0744 | lr=1.00e-03
+
+[ablation_stp][14:00:34] Ep10 020/25 | loss=0.1449 px=0.101 pe=0.093 gr=0.068
+[ablation_stp][14:00:34] Ep10 025/25 | loss=0.0563 px=0.028 pe=0.060 gr=0.045
+[ablation_stp][14:01:30] [Val] Ep10 loss=0.0521 | AG=0.0133 EN=6.7883 SSIM=0.9392
+[ablation_stp][14:01:30]   ★ 最佳模型更新  AG=0.0133
+[ablation_stp][14:01:30] Ep10 done | 56.6s | train_loss=0.0750 | lr=5.00e-04
+
+[ablation_stp][14:01:31] Ep11 020/25 | loss=0.0531 px=0.030 pe=0.061 gr=0.033
+[ablation_stp][14:01:31] Ep11 025/25 | loss=0.0390 px=0.018 pe=0.053 gr=0.030
+[ablation_stp][14:02:26] [Val] Ep11 loss=0.0390 | AG=0.0128 EN=6.5953 SSIM=0.9603
+[ablation_stp][14:02:26] Ep11 done | 56.7s | train_loss=0.0639 | lr=5.00e-04
+
+[ablation_stp][14:02:27] Ep12 020/25 | loss=0.0926 px=0.062 pe=0.070 gr=0.048
+[ablation_stp][14:02:28] Ep12 025/25 | loss=0.0573 px=0.023 pe=0.087 gr=0.050
+[ablation_stp][14:03:23] [Val] Ep12 loss=0.0381 | AG=0.0124 EN=6.6100 SSIM=0.9615
+[ablation_stp][14:03:23] Ep12 done | 56.6s | train_loss=0.0732 | lr=5.00e-04
+
+[ablation_stp][14:03:24] Ep13 020/25 | loss=0.0411 px=0.024 pe=0.046 gr=0.026
+[ablation_stp][14:03:24] Ep13 025/25 | loss=0.0968 px=0.069 pe=0.068 gr=0.042
+[ablation_stp][14:04:20] [Val] Ep13 loss=0.0418 | AG=0.0121 EN=6.5817 SSIM=0.9609
+[ablation_stp][14:04:20] Ep13 done | 56.7s | train_loss=0.0669 | lr=5.00e-04
+
+[ablation_stp][14:04:21] Ep14 020/25 | loss=0.0551 px=0.030 pe=0.059 gr=0.039
+[ablation_stp][14:04:21] Ep14 025/25 | loss=0.0615 px=0.028 pe=0.073 gr=0.053
+[ablation_stp][14:05:16] [Val] Ep14 loss=0.0325 | AG=0.0128 EN=6.7084 SSIM=0.9666
+[ablation_stp][14:05:16] Ep14 done | 56.8s | train_loss=0.0689 | lr=5.00e-04
+
+[ablation_stp][14:05:17] Ep15 020/25 | loss=0.0728 px=0.052 pe=0.053 gr=0.031
+[ablation_stp][14:05:18] Ep15 025/25 | loss=0.0537 px=0.028 pe=0.059 gr=0.039
+[ablation_stp][14:06:13] [Val] Ep15 loss=0.0323 | AG=0.0135 EN=6.7345 SSIM=0.9703
+[ablation_stp][14:06:13]   ★ 最佳模型更新  AG=0.0135
+[ablation_stp][14:06:13] Ep15 done | 56.4s | train_loss=0.0721 | lr=5.00e-04
+
+[ablation_stp][14:06:14] Ep16 020/25 | loss=0.0663 px=0.039 pe=0.074 gr=0.040
+[ablation_stp][14:06:14] Ep16 025/25 | loss=0.0511 px=0.025 pe=0.068 gr=0.039
+[ablation_stp][14:07:09] [Val] Ep16 loss=0.0367 | AG=0.0121 EN=6.6041 SSIM=0.9648
+[ablation_stp][14:07:09] Ep16 done | 56.4s | train_loss=0.0632 | lr=5.00e-04
+
+[ablation_stp][14:07:10] Ep17 020/25 | loss=0.0631 px=0.031 pe=0.076 gr=0.048
+[ablation_stp][14:07:10] Ep17 025/25 | loss=0.0576 px=0.034 pe=0.064 gr=0.034
+[ablation_stp][14:08:06] [Val] Ep17 loss=0.0310 | AG=0.0130 EN=6.7025 SSIM=0.9704
+[ablation_stp][14:08:06] Ep17 done | 56.4s | train_loss=0.0638 | lr=5.00e-04
+
+[ablation_stp][14:08:07] Ep18 020/25 | loss=0.0423 px=0.020 pe=0.056 gr=0.034
+[ablation_stp][14:08:07] Ep18 025/25 | loss=0.0649 px=0.042 pe=0.057 gr=0.035
+[ablation_stp][14:09:02] [Val] Ep18 loss=0.0382 | AG=0.0122 EN=6.5924 SSIM=0.9663
+[ablation_stp][14:09:02] Ep18 done | 56.5s | train_loss=0.0617 | lr=5.00e-04
+
+[ablation_stp][14:09:03] Ep19 020/25 | loss=0.0496 px=0.029 pe=0.053 gr=0.030
+[ablation_stp][14:09:03] Ep19 025/25 | loss=0.0629 px=0.035 pe=0.064 gr=0.042
+[ablation_stp][14:09:59] [Val] Ep19 loss=0.0443 | AG=0.0126 EN=6.6275 SSIM=0.9588
+[ablation_stp][14:09:59] Ep19 done | 56.7s | train_loss=0.0602 | lr=5.00e-04
+
+[ablation_stp][14:10:00] Ep20 020/25 | loss=0.0569 px=0.034 pe=0.053 gr=0.035
+[ablation_stp][14:10:00] Ep20 025/25 | loss=0.0647 px=0.041 pe=0.058 gr=0.035
+[ablation_stp][14:10:55] [Val] Ep20 loss=0.0395 | AG=0.0128 EN=6.8297 SSIM=0.9607
+[ablation_stp][14:10:55] Ep20 done | 56.3s | train_loss=0.0609 | lr=2.50e-04
+
+[ablation_stp][14:10:56] Ep21 020/25 | loss=0.0499 px=0.021 pe=0.070 gr=0.044
+[ablation_stp][14:10:57] Ep21 025/25 | loss=0.0347 px=0.014 pe=0.056 gr=0.030
+[ablation_stp][14:11:52] [Val] Ep21 loss=0.0367 | AG=0.0120 EN=6.5879 SSIM=0.9640
+[ablation_stp][14:11:52] Ep21 done | 56.5s | train_loss=0.0538 | lr=2.50e-04
+
+[ablation_stp][14:11:53] Ep22 020/25 | loss=0.0579 px=0.031 pe=0.073 gr=0.039
+[ablation_stp][14:11:53] Ep22 025/25 | loss=0.0379 px=0.018 pe=0.050 gr=0.029
+[ablation_stp][14:12:48] [Val] Ep22 loss=0.0292 | AG=0.0126 EN=6.6860 SSIM=0.9740
+[ablation_stp][14:12:48] Ep22 done | 56.5s | train_loss=0.0495 | lr=2.50e-04
+
+[ablation_stp][14:12:49] Ep23 020/25 | loss=0.0409 px=0.019 pe=0.058 gr=0.033
+[ablation_stp][14:12:50] Ep23 025/25 | loss=0.0365 px=0.015 pe=0.060 gr=0.031
+[ablation_stp][14:13:45] [Val] Ep23 loss=0.0288 | AG=0.0128 EN=6.7044 SSIM=0.9721
+[ablation_stp][14:13:45] Ep23 done | 56.5s | train_loss=0.0515 | lr=2.50e-04
+
+[ablation_stp][14:13:46] Ep24 020/25 | loss=0.0685 px=0.043 pe=0.063 gr=0.039
+[ablation_stp][14:13:46] Ep24 025/25 | loss=0.0531 px=0.029 pe=0.064 gr=0.035
+[ablation_stp][14:14:41] [Val] Ep24 loss=0.0285 | AG=0.0128 EN=6.6820 SSIM=0.9719
+[ablation_stp][14:14:41] Ep24 done | 56.5s | train_loss=0.0657 | lr=2.50e-04
+
+[ablation_stp][14:14:42] Ep25 020/25 | loss=0.0539 px=0.031 pe=0.054 gr=0.036
+[ablation_stp][14:14:43] Ep25 025/25 | loss=0.0519 px=0.029 pe=0.048 gr=0.036
+[ablation_stp][14:15:38] [Val] Ep25 loss=0.0299 | AG=0.0126 EN=6.6880 SSIM=0.9732
+[ablation_stp][14:15:38] Ep25 done | 56.7s | train_loss=0.0518 | lr=2.50e-04
+
+[ablation_stp][14:15:38] 完成！最佳验证 AG=0.0135  →  results/ablation_stp/best_model.pth
+
